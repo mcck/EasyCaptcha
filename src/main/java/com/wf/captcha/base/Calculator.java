@@ -6,7 +6,6 @@ import java.util.Stack;
 
 /**
  * 字符串计算器
- * @link https://www.cnblogs.com/woider/p/5331391.html
  */
 public class Calculator {
     private final Stack<String> postfixStack = new Stack<String>();// 后缀式栈
@@ -60,7 +59,7 @@ public class Calculator {
      * 按照给定的表达式计算
      *
      * @param expression 要计算的表达式例如:5+12*(3+5)/7
-     * @return
+     * @return double
      */
     public double calculate(String expression) {
         Stack<String> resultStack = new Stack<String>();
@@ -145,9 +144,9 @@ public class Calculator {
     /**
      * 利用ASCII码-40做下标去算术符号优先级
      *
-     * @param cur
-     * @param peek
-     * @return
+     * @param cur 字符
+     * @param peek 字符
+     * @return  是否
      */
     public boolean compare(char cur, char peek) {// 如果是peek优先级高于cur，返回true，默认都是peek优先级要低
         boolean result = false;

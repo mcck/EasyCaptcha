@@ -39,6 +39,7 @@ public abstract class Captcha extends Randoms {
     protected int width = 130; // 验证码显示宽度
     protected int height = 48; // 验证码显示高度
     protected int charType = TYPE_DEFAULT;  // 验证码类型
+    protected Color background = Color.WHITE;  // 背景色
     protected String chars = null; // 当前验证码
 
     /**
@@ -307,5 +308,13 @@ public abstract class Captcha extends Randoms {
 
     public void setCharType(int charType) {
         this.charType = charType;
+    }
+
+    public Color getBackground() {
+        return background;
+    }
+
+    public void setBackground(Color background) {
+        this.background = background;
     }
 }

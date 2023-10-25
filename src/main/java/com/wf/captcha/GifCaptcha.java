@@ -98,7 +98,7 @@ public class GifCaptcha extends Captcha {
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         Graphics2D g2d = (Graphics2D) image.getGraphics();
         // 填充背景颜色
-        g2d.setColor(Color.WHITE);
+        g2d.setColor(getBackground());
         g2d.fillRect(0, 0, width, height);
         // 抗锯齿
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);

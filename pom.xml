@@ -2,27 +2,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.whvcse</groupId>
+    <groupId>com.github.mcck</groupId>
 
     <artifactId>easy-captcha</artifactId>
     <version>1.6.2</version>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>8</source>
-                    <target>8</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
     <packaging>jar</packaging>
 
     <name>EasyCaptcha</name>
     <description>Java web graphics verification code, support gif verification code.</description>
-    <url>https://github.com/whvcse/EasyCaptcha</url>
+    <url>https://github.com/mcck/EasyCaptcha</url>
 
     <licenses>
         <license>
@@ -30,22 +18,27 @@
             <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
         </license>
     </licenses>
-    <developers>
-        <developer>
-            <name>whvcse</name>
-            <email>whvcse@foxmail.com</email>
-        </developer>
-    </developers>
     <scm>
-        <connection>scm:git@github.com:whvcse/EasyCaptcha.git</connection>
-        <developerConnection>scm:git@github.com:whvcse/EasyCaptcha.git</developerConnection>
-        <url>https://github.com/whvcse/EasyCaptcha</url>
+        <connection>scm:git@github.com:mcck/EasyCaptcha.git</connection>
+        <developerConnection>scm:git@github.com:mcck/EasyCaptcha.git</developerConnection>
+        <url>https://github.com/mcck/EasyCaptcha</url>
     </scm>
 
     <properties>
+        <nexus.base.server>http://nexus.ynhtapp.com</nexus.base.server>
+
+        <!-- 解决编译时，编码警告乱码 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!--   解决test命令执行时乱码     -->
+        <argLine>-Dfile.encoding=UTF-8</argLine>
+
+        <!-- 其他乱码问题解决 -->
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+
         <java.version>1.8</java.version>
+        <skipTests>true</skipTests>
     </properties>
 
     <dependencies>
@@ -64,65 +57,59 @@
         </dependency>
     </dependencies>
 
-    <profiles>
-        <profile>
-            <id>release</id>
-            <build>
-                <plugins>
-                    <!-- Source -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <version>2.2.1</version>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>jar-no-fork</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <!-- Javadoc -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>2.9.1</version>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <!-- GPG -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.5</version>
-                        <executions>
-                            <execution>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-            <distributionManagement>
-                <snapshotRepository>
-                    <id>oss</id>
-                    <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-                </snapshotRepository>
-                <repository>
-                    <id>oss</id>
-                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-                </repository>
-            </distributionManagement>
-        </profile>
-    </profiles>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+
+            <!-- Source -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Javadoc -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <distributionManagement>
+        <repository>
+            <id>huitian-nexus</id>
+            <name>Nexus Release Repository</name>
+            <url>${nexus.base.server}/repository/huitian-release/</url>
+        </repository>
+        <snapshotRepository>
+            <id>huitian-nexus</id>
+            <name>Nexus Snapshots Repository</name>
+            <url>${nexus.base.server}/repository/huitian-snapshot/</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
